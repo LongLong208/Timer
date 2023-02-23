@@ -152,7 +152,6 @@ function saveColor() {
     setCookie("color_r", color_r, 365);
     setCookie("color_g", color_g, 365);
     setCookie("color_b", color_b, 365);
-    getCookie("color_r");
 }
 
 /* ****************************** cookies */
