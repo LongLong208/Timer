@@ -14,10 +14,19 @@ function init() {
         let value = document.getElementById(`${color}Slide`).value;
         box.style["background-color"] = `rgba(${base}, ${value / 255})`;
     }
-    initColorBox("green", "0,255,0");
-    initColorBox("red", "255,0,0");
-    initColorBox("blue", "0,0,255");
-    
+
+    let ccolor_r = getCookie("color_r");
+    let ccolor_g = getCookie("color_g");
+    let ccolor_b = getCookie("color_b");
+    console.log(ccolor_r);
+
+    if (ccolor_r != "")
+        color_r = parseInt(ccolor_r);
+    if (ccolor_g != "")
+        color_g = parseInt(ccolor_g);
+    if (ccolor_b != "")
+        color_b = parseInt(ccolor_b);
+
     document.getElementById("redSlide").value = color_r;
     document.getElementById("greenSlide").value = color_g;
     document.getElementById("blueSlide").value = color_b;
@@ -27,14 +36,15 @@ function init() {
     let currentColor = document.getElementById("currentColor");
     currentColor.style["background-color"] = `rgb(${color_r}, ${color_g}, ${color_b})`;
 
+
+    initColorBox("green", "0,255,0");
+    initColorBox("red", "255,0,0");
+    initColorBox("blue", "0,0,255");
     updateColor();
 }
 
-function updateColor() {
-    document.body.style.setProperty("--color-r", color_r);
-    document.body.style.setProperty("--color-g", color_g);
-    document.body.style.setProperty("--color-b", color_b);
-}
+
+/* ****************************** timer */
 
 function setTime(time) {
     let timeSpan = document.getElementById("time");
@@ -98,21 +108,23 @@ function split() {
     }
 }
 
+/* ****************************** 调色板 */
+
 function changeColor(value, id) {
     let e = document.getElementById(id);
     let newColor = document.getElementById("newColor");
     let base = "0,0,0";
-    if (id=="greenBox") {
+    if (id == "greenBox") {
         base = "0,255,0";
         color_g = value;
-    } else if (id=="redBox") {
+    } else if (id == "redBox") {
         base = "255,0,0";
         color_r = value;
     } else {
         base = "0,0,255";
         color_b = value;
     }
-    e.style["background-color"] = `rgba(${base}, ${value/255})`;
+    e.style["background-color"] = `rgba(${base}, ${value / 255})`;
     newColor.style["background-color"] = `rgb(${color_r}, ${color_g}, ${color_b})`;
     updateColor();
 }
@@ -129,3 +141,35 @@ function colorPaltteBtn() {
     }
     colorPaltteState = !colorPaltteState;
 }
+
+function updateColor() {
+    document.body.style.setProperty("--color-r", color_r);
+    document.body.style.setProperty("--color-g", color_g);
+    document.body.style.setProperty("--color-b", color_b);
+}
+
+function saveColor() {
+    setCookie("color_r", toString(color_r), 365);
+    setCookie("color_g", toString(color_g), 365);
+    setCookie("color_b", toString(color_b), 365);
+}
+
+/* ****************************** cookies */
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = `expires=${d.toGMTString()}`;
+    document.cookie += `${cname}=${cvalue}; ${expires}`;
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i].trim();
+        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+    }
+    return "";
+}
+
+
