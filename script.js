@@ -154,10 +154,10 @@ function saveColor() {
     setCookie("color_b", color_b, 365);
 }
 
-function resetColor() {
-    setCookie("color_r", color_r, 0);
-    setCookie("color_g", color_g, 0);
-    setCookie("color_b", color_b, 0);
+function resetCookies() {
+    deleteCookie("color_r");
+    deleteCookie("color_g");
+    deleteCookie("color_b");
 }
 
 /* ****************************** cookies */
@@ -166,6 +166,10 @@ function setCookie(cname, cvalue, exdays) {
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     var expires = `expires=${d.toGMTString()}`;
     document.cookie = `${cname}=${cvalue}; ${expires}`;
+}
+
+function deleteCookie(cname) {
+    setCookie(cname, 0, 0);
 }
 
 function getCookie(cname) {
