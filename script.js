@@ -149,9 +149,10 @@ function updateColor() {
 }
 
 function saveColor() {
-    setCookie("color_r", toString(color_r), 365);
-    setCookie("color_g", toString(color_g), 365);
-    setCookie("color_b", toString(color_b), 365);
+    setCookie("color_r", color_r, 365);
+    setCookie("color_g", color_g, 365);
+    setCookie("color_b", color_b, 365);
+    getCookie("color_r");
 }
 
 /* ****************************** cookies */
@@ -160,11 +161,13 @@ function setCookie(cname, cvalue, exdays) {
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     var expires = `expires=${d.toGMTString()}`;
     document.cookie += `${cname}=${cvalue}; ${expires}`;
+    console.log(`${cname}=${cvalue}; ${expires}`);
 }
 
 function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
+    console.log(ca);
     for (var i = 0; i < ca.length; i++) {
         var c = ca[i].trim();
         if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
