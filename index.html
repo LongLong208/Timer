@@ -1,12 +1,14 @@
 <html>
+
 <head>
     <style>
-        *{
+        * {
             padding: 0;
             margin: 0;
             font-size: 24px;
         }
-        .page{
+
+        .page {
             min-width: 100%;
             width: fit-content;
             min-height: 100%;
@@ -14,24 +16,30 @@
             text-align: center;
             background-color: #222;
         }
-        .content{
+
+        .content {
             color: #eee;
             display: inline-block;
         }
-        table{
+
+        table {
             color: #eee;
 
         }
-        .table{
+
+        .table {
             color: #eee;
             display: inline-block;
         }
+
         th {
             width: 200px;
         }
+
         td {
             text-align: center;
         }
+
     </style>
 
     <script>
@@ -45,13 +53,12 @@
             let timeSpan = document.getElementById("time");
             timeSpan.innerHTML = time;
         }
-        
+
         function getTime() {
-            return new Date(new Date().getTime() - beginTime.getTime() - 60*60*8*1000);
+            return new Date(new Date().getTime() - beginTime.getTime() - 60 * 60 * 8 * 1000);
         }
 
-        function clock()
-        {
+        function clock() {
             curTime = getTime();
             setTime(curTime.toLocaleTimeString());
         }
@@ -67,29 +74,29 @@
 
         function begin() {
             lastTime = beginTime = new Date();
-            timer = window.setInterval("clock()",1000);
+            timer = window.setInterval("clock()", 1000);
             setSystemState(true);
         }
         function reset() {
             setTime("00:00:00");
             window.clearInterval(timer);
             let table = document.getElementById("timeTable");
-            while (1<table.children.length)
+            while (1 < table.children.length)
                 table.removeChild(table.children[1]);
             setSystemState(false);
         }
 
         function split() {
             let table = document.getElementById("timeTable");
-            let tr    = document.createElement("tr");
-            let td0   = document.createElement("td");
-            let td1   = document.createElement("td");
-            let td2   = document.createElement("td");
-            
-            let newTime = new Date();
-            let long = new Date(newTime.getTime() - lastTime.getTime() - 60*60*8*1000);
+            let tr = document.createElement("tr");
+            let td0 = document.createElement("td");
+            let td1 = document.createElement("td");
+            let td2 = document.createElement("td");
 
-            if (long.getTime() >= 1000 - 60*60*8*1000) {
+            let newTime = new Date();
+            let long = new Date(newTime.getTime() - lastTime.getTime() - 60 * 60 * 8 * 1000);
+
+            if (long.getTime() >= 1000 - 60 * 60 * 8 * 1000) {
                 td0.innerHTML = i++;
                 td1.innerHTML = curTime.toLocaleTimeString();
                 td2.innerHTML = long.toLocaleTimeString();
